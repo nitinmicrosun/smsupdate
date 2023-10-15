@@ -1,1 +1,1 @@
-Hello Lakshya
+console.log("Hello Lakshya");
