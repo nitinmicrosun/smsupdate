@@ -31,4 +31,4 @@ let answer = new Schema(
     versionKey: "",
   }
 );
-module.exports = mongoose.model("user", answer);
+module.exports = mongoose.model("admin", answer);
