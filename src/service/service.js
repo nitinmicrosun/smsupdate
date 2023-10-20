@@ -180,5 +180,34 @@ exports.resservice = async (req,res) => {
     console.log("error", error);
   }
 
-  //saving database
+};
+
+exports.signout = async (req,res) => {
+       
+  try {
+    if (req.cookies.jwt != undefined && req.cookies.jwt != "") {
+      const token = req.cookies.jwt;
+      let data= await userModel.findOneAndUpdate({auth_key:token},{auth_key:null});
+      res.cookie("jwt", '');
+  if(data){
+      return {
+        data:data,
+        message: "user is logined",
+        sucess: true,
+        status: 200,
+      };
+    } else {
+      return {
+        data:data,
+        message: "invalid credentials",
+        sucess: false,
+        status: 300,
+      };
+    }
+  } 
+}
+ catch (error) {
+  console.log("error", error);
+}
+
 };
