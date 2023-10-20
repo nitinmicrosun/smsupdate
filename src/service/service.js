@@ -1,4 +1,4 @@
-let userModel = require("./../model/register");
+let adminModel = require("./../model/register");
 let serviceModel = require("./../model/service");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
@@ -14,7 +14,7 @@ exports.register_data_save = async (req) => {
     let pass = req.body.pass;
 
     let number = req.body.mobile;
-    let savedata = new userModel({
+    let savedata = new adminModel({
       name: name,
       email: email,
       password: pass,
@@ -43,7 +43,7 @@ exports.register_data_save = async (req) => {
 };
 exports.login_data_validation = async (req, res) => {
   try {
-    let data = await userModel.findOne({ email: req.body.email });
+    let data = await adminModel.findOne({ email: req.body.email });
     if (data) {
       let matchpass =  bcrypt.compareSync( req.body.pass,data.password);
       if (matchpass) {
@@ -51,7 +51,7 @@ exports.login_data_validation = async (req, res) => {
           { _id: data._id.toString() },
           process.env.SECRET_KEY
         );
-  await userModel.findByIdAndUpdate(
+  await adminModel.findByIdAndUpdate(
           { _id: data._id },
           { auth_key: token }
         );
@@ -187,7 +187,7 @@ exports.signout = async (req,res) => {
   try {
     if (req.cookies.jwt != undefined && req.cookies.jwt != "") {
       const token = req.cookies.jwt;
-      let data= await userModel.findOneAndUpdate({auth_key:token},{auth_key:null});
+      let data= await adminModel.findOneAndUpdate({auth_key:token},{auth_key:null});
       res.cookie("jwt", '');
   if(data){
       return {
