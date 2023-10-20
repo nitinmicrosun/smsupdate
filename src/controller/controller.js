@@ -3,7 +3,8 @@ let {
   login_data_validation,
   update_service,
   add_admin_service,
-  resservice
+  resservice,
+  signout
 } = require("./../service/service");
 
 exports.register = async (req, res) => {
@@ -59,6 +60,15 @@ exports.resservice=async(req,res)=>{
   let data=await resservice(res);
   if (data.sucess){
    res.render("viewservice",{data:data.data});
+ }else {
+   res.send({staus: 400, message: "not applicable service", data: [], sucess: false })
+ }
+}
+
+exports.signout=async(req,res)=>{
+  let data=await signout(req,res);
+  if (data.sucess){
+   res.redirect("/");
  }else {
    res.send({staus: 400, message: "not applicable service", data: [], sucess: false })
  }

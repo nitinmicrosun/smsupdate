@@ -10,7 +10,8 @@ let {
   update_service,
   resservice,
   add_admin_service,
-  login
+  login,
+  signout
 } = require("./../controller/controller");
 router.get("/register", register);
 router.get("/",login);
@@ -38,5 +39,7 @@ router.get("/reservice",resservice);
   router.post("/flash",async(req,res)=>{
     res.render("/flash")
   })
-//router.post("/update_admin_services", update_service);
+
+  router.get("/signout",signout);
+
 module.exports = router;
