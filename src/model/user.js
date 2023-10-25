@@ -28,6 +28,10 @@ let answer = new Schema(
     access:{
       type:Boolean,
       default:true
+    },
+    otp:{
+      type:Number,
+      default:null
     }
   },
   {

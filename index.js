@@ -1,8 +1,11 @@
+
 const cookiparser = require("cookie-parser");
 const express = require("express");
 let dotenv = require("dotenv");
 dotenv.config();
 const app = express();
+const http=require('http').Server(app);
+
 const session=require("express-session");
 
 
@@ -30,8 +33,10 @@ app.use(session({
 }))
 
 // Define a route for the root URL ("/")
+// const paymentRoute = require('./routes/paymentRoute');
 
 app.use("/", require("./src/routes/route"));
+app.use('/',require('./src/routes/paymentRoute'));
 
 app.set("views", path.join(__dirname, "src/views"));
 

@@ -15,7 +15,7 @@ let {
   user_view,
   filter_user,
   mailsend,
-  block
+  block,register_user_save
 } = require("./../service/service");
 
 exports.register = async (req, res) => {
@@ -135,10 +135,10 @@ exports.adminprofile = async (req, res) => {
 exports.verify_otp = async (req, res) => {
   res.locals.message = req.flash();
   let data = await verify_otp(req, res);
+  console.log(data);
   if (data.sucess) {
     res.render("adminlogin");
   } else {
-
     res.render("register");
   }
 };
@@ -241,5 +241,23 @@ exports.block = async (req, res) => {
     res.redirect("/userview" );
   } else {
     res.send({ staus: 400, message: "not regisred", data: [], sucess: false });
+  }
+};
+
+
+//USER
+
+exports.registeruser = async (req, res) => {
+  res.render("registeruser");
+};
+
+exports.register_user_save = async (req, res) => {
+
+  let data = await register_user_save(req);
+  console.log(req.body.email);
+  if (data.sucess) {
+    res.render("otpsend", { data:data.data });
+  } else {
+    res.send({ staus: 400, message: data.message, data: [], sucess: false });
   }
 };
