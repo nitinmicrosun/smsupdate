@@ -26,7 +26,8 @@ let {
   filter_transaction,
   user_view,
   filter_user,
-  mailpage,mailsend
+  mailpage,mailsend,
+  block
 } = require("./../controller/controller");
 //router.get("/register", register);
 router.get("/",login);
@@ -64,5 +65,6 @@ router.post("/flash",async(req,res)=>{
   router.post("/filteruser",auth,filter_user);
   router.post("/user_mail_page" ,auth,mailpage)
   router.post("/send_mail" ,auth,mailsend)
+  router.post("/user_block",auth,block)
 
 module.exports = router;
