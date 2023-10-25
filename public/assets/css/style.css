@@ -221,11 +221,31 @@ h1, h2, h3, h4, h5, h6 {
   overflow: hidden;
 }
 
+filter{
+  font-size: 11px;
+}
+.filter-service{
+  font-size: 13px; 
+}
+.mail{
+  font-size: 15px;
+}
+.filter-transaction{
+  font-size: 11px; 
+}
 .card-header, .card-footer {
   border-color: #ebeef4;
   background-color: #fff;
   color: #798eb3;
   padding: 15px;
+}
+.card-header-tran {
+  border-color: #ebeef4;
+  background-color: #fff;
+  color: #798eb3;
+  padding: 15px;
+  padding-left: 0px;
+  padding-right: 0px;
 }
 
 .card-title {
@@ -242,7 +262,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .card-body {
-  padding: 0 20px 20px 20px;
+  padding: 0px 20px 20px 20px;
+}
+
+.card-body-mail {
+  padding: 20px 20px 20px 20px;
 }
 
 .card-img-overlay {

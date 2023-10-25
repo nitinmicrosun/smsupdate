@@ -1,14 +1,12 @@
 const jwt = require("jsonwebtoken");
-const userModel = require("../src/model/register");
+const adminModel = require("../src/model/admin");
 
 module.exports = async (req, res, next) => {
   try {
-    console.log("req.cookies", req.cookies);
     if (req.cookies.jwt != undefined && req.cookies.jwt != "") {
       const token = req.cookies.jwt;
       const { _id } = jwt.verify(token, process.env.SECRET_KEY);
-
-      req.user = await userModel.findOne({ _id });
+      req.user = await adminModel.findOne({ _id });
       if (req.user) {
         next();
       } else {
