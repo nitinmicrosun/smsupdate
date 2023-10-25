@@ -614,3 +614,33 @@ exports.mailsend= async (req,res) => {
     console.log("error", error);
   }
 };
+
+//block
+
+exports.block = async (req,res) => {
+  try {
+
+    let id=req.body.id;
+    let updatedata = await userModel.findByIdAndUpdate({
+      _id:id
+    },
+    {
+      acess:false,
+    });
+    if (updatedata){
+      return {
+        message: "data saved",
+        sucess: true,
+      };
+    }else {
+      return {
+        message: "not done",
+        data: null,
+        sucess: false,
+      };
+    }
+  } catch (error) {
+    console.log("error", error);
+  }
+
+};

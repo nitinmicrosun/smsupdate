@@ -14,7 +14,8 @@ let {
   filter_transaction,
   user_view,
   filter_user,
-  mailsend
+  mailsend,
+  block
 } = require("./../service/service");
 
 exports.register = async (req, res) => {
@@ -224,6 +225,18 @@ exports.mailpage = async (req, res) => {
 exports.mailsend = async (req, res) => {
   let data = await mailsend(req);
   console.log(data)
+  if (data.sucess) {
+    res.redirect("/userview" );
+  } else {
+    res.send({ staus: 400, message: "not regisred", data: [], sucess: false });
+  }
+};
+
+
+//block
+
+exports.block = async (req, res) => {
+  let data = await block(req);
   if (data.sucess) {
     res.redirect("/userview" );
   } else {
