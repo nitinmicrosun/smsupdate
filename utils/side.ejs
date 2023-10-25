@@ -2,7 +2,7 @@
 <aside id="sidebar" class="sidebar">
   <ul class="sidebar-nav" id="sidebar-nav">
     <li class="nav-item">
-      <a class="nav-link" href="index.html">
+      <a class="nav-link" href="/dashboard">
         <i class="bi bi-grid"></i>
         <span>Dashboard</span>
       </a>
@@ -10,20 +10,10 @@
     <!-- End Dashboard Nav -->
 
     <li class="nav-item">
-      <a
-        class="nav-link collapsed"
-        data-bs-target="#components-nav"
-        data-bs-toggle="collapse"
-        href=""
-      >
-        <i class="bi bi-menu-button-wide"></i><span>Services</span
-        ><i class="bi bi-chevron-down ms-auto"></i>
+      <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="">
+        <i class="bi bi-menu-button-wide"></i><span>Services</span><i class="bi bi-chevron-down ms-auto"></i>
       </a>
-      <ul
-        id="components-nav"
-        class="nav-content collapse"
-        data-bs-parent="#sidebar-nav"
-      >
+      <ul id="components-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
         <li>
           <a href="/add_admin_services_page">
             <i class="bi bi-circle"></i><span>Add Services</span>
@@ -34,50 +24,51 @@
             <i class="bi bi-circle"></i><span>View Services</span>
           </a>
         </li>
-       
-        
-        
-        
+
+
+
+
       </ul>
     </li>
     <!-- End Components Nav -->
 
 
     <li class="nav-item">
-      <a
-        class="nav-link collapsed"
-        data-bs-target="#charts-nav"
-        data-bs-toggle="collapse"
-        href="#"
-      >
-        <i class="bi bi-bar-chart"></i><span>Transaction</span
-        ><i class="bi bi-chevron-down ms-auto"></i>
+      <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
+        <i class="bi bi-bar-chart"></i><span>Transaction</span><i class="bi bi-chevron-down ms-auto"></i>
       </a>
-      <ul
-        id="charts-nav"
-        class="nav-content collapse"
-        data-bs-parent="#sidebar-nav"
-      >
+      <ul id="charts-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
         <li>
-          <a href="charts-chartjs.html">
+          <a href="/viewtransaction">
             <i class="bi bi-circle"></i><span>Transaction Table</span>
-          </a>
-        </li>
-        <li>
-          <a href="charts-apexcharts.html">
-            <i class="bi bi-circle"></i><span>Download Transaction</span>
           </a>
         </li>
       </ul>
     </li>
     <!-- End transaction Nav -->
 
-    
-
-    <li class="nav-heading">Pages</li>
 
     <li class="nav-item">
-      <a class="nav-link collapsed" href="users-profile.html">
+      <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+        <i class="bi bi-layout-text-window-reverse"></i><span>User Manager</span><i
+          class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul id="tables-nav" 
+      class="nav-content collapse " 
+      data-bs-parent="#sidebar-nav">
+        <li>
+          <a href="/userview">
+            <i class="bi bi-circle"></i><span>User Table</span>
+          </a>
+        </li>
+      </ul>
+    </li>
+
+
+    <li class="nav-heading">Settings</li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="/adminprofile">
         <i class="bi bi-person"></i>
         <span>Profile</span>
       </a>
