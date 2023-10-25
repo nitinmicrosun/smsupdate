@@ -8,6 +8,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
 let mongoose = require("mongoose");
+const user = require("./../model/user");
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',// E.g., 'Gmail' or use your SMTP server settings
@@ -74,8 +75,8 @@ exports.verify_otp=async(req,res)=>{
   try{
   let email=req.body.email;
   let otp=req.body.otp;  
-  let data=await adminModel.findOne({email:email})
-  if(data&&data.otp==otp){
+  let data=await userModel.findOne({email:email})
+  if(data.otp==otp){
     return {
       message: "data saved",
       data: data,
@@ -83,7 +84,7 @@ exports.verify_otp=async(req,res)=>{
     };
   }
   else{
-    await adminModel.findByIdAndDelete({_id:data._id});
+     await userModel.findByIdAndDelete({_id:data._id});
     return {
       message: "data not saved",
       data: [],
@@ -265,7 +266,7 @@ exports.filter_service = async (req,res) => {
        }
        console.log(condition)
     let data= await serviceModel.find(condition);
-    console.log(data)
+   
     if(data){
         if (req.user&&data){
           return {
@@ -395,7 +396,7 @@ exports.change_pass = async (req,res) => {
     let data = await adminModel.findOne({ _id:id });
     if (data) {
       let matchpass =  bcrypt.compareSync( oldpass,data.password);
-      console.log(matchpass);
+     
       if (matchpass) {
     let updatedata = await adminModel.findByIdAndUpdate({
       _id:id
@@ -480,9 +481,9 @@ exports.filter_transaction = async (req,res) => {
        if(req.body.filtertransactionid){
          condition.amount=req.body.filtertransactionid;
        }
-       console.log(condition)
+      
     let data= await transactionModel.find(condition);
-    console.log(data)
+   
     if(data){
         if (req.user&&data){
           return {
@@ -594,7 +595,7 @@ exports.mailsend= async (req,res) => {
     };
     // Send the email
       let data=await transporter.sendMail(mailOptions);
-      console.log(data)
+    
         if (data) {
           return {
             message: "invalid credentials",
@@ -643,4 +644,68 @@ exports.block = async (req,res) => {
     console.log("error", error);
   }
 
+};
+
+
+
+
+//USER
+
+exports.register_user_save = async (req) => {
+  try {
+    let salt = bcrypt.genSaltSync(10);
+    req.body.pass = bcrypt.hashSync(req.body.pass, salt);
+    let name = req.body.name;
+    let email = req.body.email;
+    let pass = req.body.pass;
+    let number = req.body.mobile;
+    const otp = randomstring.generate({
+      length: 6,
+      charset: 'numeric',
+    });
+     let data=userModel.findOne({email:email});
+    if(data.email){
+      return {
+        message: "already exixt",
+        data: [],
+        sucess: false,
+    };
+  }else{
+const mailOptions = {
+  from: 'aceisop107@gmail.com',
+  to: email,
+  subject: 'Your OTP Code',
+  text: `Your OTP code is: ${otp}`,
+};
+// Send the email
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      res.redirect('/send-otp?message=Error sending OTP');
+    } 
+  });
+    let savedata = new userModel({
+      name: name,
+      email: email,
+      password: pass,
+      mobile: number,
+      otp:otp
+    });
+    let saved_data = await savedata.save();
+    if (saved_data)
+      return {
+        message: "data saved",
+        data: saved_data,
+        sucess: true,
+      };
+    else {
+      return {
+        message: "data not saved",
+        data: [],
+        sucess: false,
+      };
+    }
+  }
+  } catch (error) {
+    console.log("error", error);
+  }
 };

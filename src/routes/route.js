@@ -27,7 +27,9 @@ let {
   user_view,
   filter_user,
   mailpage,mailsend,
-  block
+  block,
+  registeruser,
+  register_user_save
 } = require("./../controller/controller");
 //router.get("/register", register);
 router.get("/",login);
@@ -65,6 +67,11 @@ router.post("/flash",async(req,res)=>{
   router.post("/filteruser",auth,filter_user);
   router.post("/user_mail_page" ,auth,mailpage)
   router.post("/send_mail" ,auth,mailsend)
-  router.post("/user_block",auth,block)
+  router.post("/user_block",auth,block);
+
+
+  //USER
+router.get("/register_user",registeruser);
+router.post("/register_user_save",register_user_save);
 
 module.exports = router;
